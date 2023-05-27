@@ -144,7 +144,25 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="listing-categories">{{ content.field_listing_category }}</div>
           <h1{{ title_attributes.addClass('post-title') }}>{{ label }}</h1>
-          <div class="listing-price"><span class="label">{{'Price'|t}}: </span>{{content.field_listing_price}}</div>
+          <div class="listing-price"><span class="label">{{'Prices'|t}}: </span>
+          {{content.field_listing_price_e}}
+        <script>
+          //Pedro Garcia
+
+          const myprice = document.querySelector(".listing-price .field.field--name-field-listing-price-e.field--type-decimal.field--label-hidden.field__item");
+          
+          let value = myprice.textContent;
+
+          let valueoutcome = new Intl.NumberFormat('de-DE', 
+                                                  { style: 'currency', 
+                                                  currency: 'EUR',  
+                                                  minimumFractionDigits: 0,
+                                                  maximumFractionDigits: 0, }).format(value)
+
+          myprice.innerHTML = valueoutcome;
+
+        </script>
+          </div>
         </div>
       </div>    
     </div> 
@@ -186,11 +204,12 @@
             </div>  
           {% endif %}  
 
-          {% if content.field_listing_amenities|render %}
+          {% if content.field_building_amenities|render %}
             <div class="listing-info-block listing-amenties" id="listing-features">
-              <div class="title"><i class="la la-list-alt"></i>{{ 'Amenties'|t }}</div>
+              <div class="title"><i class="la la-check-circle"></i>{{ 'Amenties'|t }}</div>
               <div class="block-content">
-                {{ content.field_listing_amenities }}
+                {{ content.field_building_amenities }}
+                
               </div>  
             </div> 
           {% endif %}  
